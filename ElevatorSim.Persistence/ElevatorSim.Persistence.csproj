@@ -17,5 +17,8 @@
 		</PackageReference>
 		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ElevatorSim.Domain\ElevatorSim.Domain.csproj" />
+	</ItemGroup>
 
 </Project>
