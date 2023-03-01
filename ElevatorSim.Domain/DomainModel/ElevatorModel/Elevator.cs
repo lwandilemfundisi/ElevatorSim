@@ -39,14 +39,16 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         public void InitializeElevator()
         {
             AggregateSpecifications
-                .AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsNew
+                .ThrowDomainErrorIfNotSatisfied(this);
             Emit(new ElevatorInitializedEvent());
         }
 
         public void DisableElevator()
         {
             AggregateSpecifications
-                .AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsNew
+                .ThrowDomainErrorIfNotSatisfied(this);
 
             Emit(new ElevatorDisabledEvent());
         }
