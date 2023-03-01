@@ -1,4 +1,5 @@
-﻿using Microservice.Framework.Domain.Commands;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.ExecutionResults;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
@@ -8,11 +9,19 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
     {
         #region Constructors
 
-        public RequestElevatorUpCommand(ElevatorId aggregateId)
+        public RequestElevatorUpCommand(
+            ElevatorId aggregateId,
+            Move move)
             : base(aggregateId)
         {
-
+            Move = move;
         }
+
+        #endregion
+
+        #region Properties
+
+        public Move Move { get; }
 
         #endregion
     }
@@ -27,7 +36,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
             RequestElevatorUpCommand command,
             CancellationToken cancellationToken)
         {
-            aggregate.MoveUp();
+            aggregate.MoveUp(command.Move);
             return Task.FromResult(ExecutionResult.Success());
         }
 
