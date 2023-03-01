@@ -25,7 +25,29 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 
         #endregion
 
+        #region Properties
+
+        public uint CurrentFloor { get; set; }
+
+        public decimal Weightlimit { get; set; }
+
+        #endregion
+
         #region Methods
+
+        public void InitializeElevator()
+        {
+            AggregateSpecifications
+                .AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+            Emit(new ElevatorInitializedEvent());
+        }
+
+        public void DisableElevator()
+        {
+            AggregateSpecifications
+                .AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+            Emit(new ElevatorDisabledEvent());
+        }
 
         public void MoveUp(Move move)
         {
