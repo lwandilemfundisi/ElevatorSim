@@ -27,6 +27,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
             DisableElevatorCommand command, 
             CancellationToken cancellationToken)
         {
+            aggregate.DisableElevator();
             return Task.FromResult(ExecutionResult.Success());
         }
 
