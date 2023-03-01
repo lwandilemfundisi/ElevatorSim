@@ -1,4 +1,5 @@
-﻿using Microservice.Framework.Domain.Commands;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects;
+using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.ExecutionResults;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
@@ -8,10 +9,19 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
     {
         #region Constructors
 
-        public RequestElevatorCommand(ElevatorControlId aggregateId)
+        public RequestElevatorCommand(
+            ElevatorControlId aggregateId,
+            RequestElevetor requestElevetor)
             : base(aggregateId)
         {
+            RequestElevetor = requestElevetor;
         }
+
+        #endregion
+
+        #region Properties
+
+        public RequestElevetor RequestElevetor { get; }
 
         #endregion
     }
