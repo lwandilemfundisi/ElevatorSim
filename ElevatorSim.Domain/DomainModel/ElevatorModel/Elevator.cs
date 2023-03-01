@@ -1,4 +1,5 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.Events;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.Specifications;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
 using Microservice.Framework.Domain.Aggregates;
 using Microservice.Framework.Domain.Extensions;
@@ -29,7 +30,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 
         public uint CurrentFloor { get; set; }
 
-        public decimal Weightlimit { get; set; }
+        public uint Weightlimit { get; set; }
 
         #endregion
 
@@ -46,20 +47,27 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         {
             AggregateSpecifications
                 .AggregateIsNew.ThrowDomainErrorIfNotSatisfied(this);
+
             Emit(new ElevatorDisabledEvent());
         }
 
         public void MoveUp(Move move)
         {
             AggregateSpecifications
-                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsCreated
+                .And(move.GetWeightSpecification())
+                .ThrowDomainErrorIfNotSatisfied(this);
+
             Emit(new ElevatorMovedUpEvent());
         }
 
         public void MoveDown(Move move)
         {
             AggregateSpecifications
-                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsCreated
+                .And(move.GetWeightSpecification())
+                .ThrowDomainErrorIfNotSatisfied(this);
+
             Emit(new ElevatorMovedDownEvent());
         }
 
