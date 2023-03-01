@@ -1,4 +1,6 @@
-﻿using Microservice.Framework.Domain.Aggregates;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.Events;
+using Microservice.Framework.Domain.Aggregates;
+using Microservice.Framework.Domain.Extensions;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 {
@@ -19,6 +21,24 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         {
         }
 
+
+        #endregion
+
+        #region Methods
+
+        public void MoveUp()
+        {
+            AggregateSpecifications
+                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+            Emit(new ElevatorMovedUpEvent());
+        }
+
+        public void MoveDown()
+        {
+            AggregateSpecifications
+                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+            Emit(new ElevatorMovedDownEvent());
+        }
 
         #endregion
     }
