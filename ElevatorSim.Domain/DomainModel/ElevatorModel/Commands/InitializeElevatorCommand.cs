@@ -8,11 +8,24 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
     {
         #region Constructors
 
-        public InitializeElevatorCommand(ElevatorId aggregateId)
+        public InitializeElevatorCommand(
+            ElevatorId aggregateId,
+            uint floor,
+            uint weightLimit
+            )
             : base(aggregateId)
         {
-
+            Floor = floor;
+            WeightLimit = weightLimit;
         }
+
+        #endregion
+
+        #region Properties
+
+        public uint Floor { get; }
+
+        public uint WeightLimit { get; }
 
         #endregion
     }
@@ -27,7 +40,10 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
             InitializeElevatorCommand command, 
             CancellationToken cancellationToken)
         {
-            aggregate.InitializeElevator();
+            aggregate.InitializeElevator(
+                command.Floor, 
+                command.WeightLimit);
+
             return Task.FromResult(ExecutionResult.Success());
         }
 

@@ -8,8 +8,6 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
     public class ElevatorControl 
         : AggregateRoot<ElevatorControl, ElevatorControlId>
     {
-        private Action<object, string> LazyLoader { get; set; }
-
         #region Constructors
 
         public ElevatorControl()

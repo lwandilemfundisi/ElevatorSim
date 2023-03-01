@@ -1,6 +1,6 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.Events;
-using ElevatorSim.Domain.DomainModel.ElevatorModel.Specifications;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects.XmlValueObjects;
 using Microservice.Framework.Domain.Aggregates;
 using Microservice.Framework.Domain.Extensions;
 
@@ -9,8 +9,6 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
     public class Elevator 
         : AggregateRoot<Elevator, ElevatorId>
     {
-        private Action<object, string> LazyLoader { get; set; }
-
         #region Constructors
 
         public Elevator()
@@ -32,15 +30,25 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 
         public uint Weightlimit { get; set; }
 
+        public ElevatorStatus ElevatorStatus { get; set; }
+
         #endregion
 
         #region Methods
 
-        public void InitializeElevator()
+        public void InitializeElevator(
+            uint floor,
+            uint weightLimit
+            )
         {
             AggregateSpecifications
                 .AggregateIsNew
                 .ThrowDomainErrorIfNotSatisfied(this);
+
+            CurrentFloor = floor;
+            Weightlimit = weightLimit;
+            ElevatorStatus = ElevatorStatuses.Of().InOperation;
+
             Emit(new ElevatorInitializedEvent());
         }
 
@@ -49,6 +57,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             AggregateSpecifications
                 .AggregateIsNew
                 .ThrowDomainErrorIfNotSatisfied(this);
+
+            ElevatorStatus = ElevatorStatuses.Of().Disabled;
 
             Emit(new ElevatorDisabledEvent());
         }
@@ -60,6 +70,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
                 .And(move.GetWeightSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
+            CurrentFloor = move.FloorMovingTo;
+            Weightlimit = move.Weight;
+
             Emit(new ElevatorMovedUpEvent());
         }
 
@@ -69,6 +82,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
                 .AggregateIsCreated
                 .And(move.GetWeightSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
+
+            CurrentFloor = move.FloorMovingTo;
+            Weightlimit = move.Weight;
 
             Emit(new ElevatorMovedDownEvent());
         }

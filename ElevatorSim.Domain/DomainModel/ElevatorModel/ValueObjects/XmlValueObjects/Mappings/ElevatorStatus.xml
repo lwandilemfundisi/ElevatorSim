@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ValueObjects>
+	<ValueObject>
+		<Code>IOP</Code>
+		<Text>In Operation</Text>
+	</ValueObject>
+	<ValueObject>
+		<Code>DIS</Code>
+		<Text>Disabled</Text>
+	</ValueObject>
+</ValueObjects>

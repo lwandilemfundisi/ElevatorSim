@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DomainModel\ElevatorModel\ValueObjects\XmlValueObjects\Mappings\ElevatorStatus.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DomainModel\ElevatorModel\ValueObjects\XmlValueObjects\Mappings\ElevatorStatus.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microservice.Framework.Domain" Version="7.0.1" />
     <PackageReference Include="Microservice.Framework.Persistence.EFCore" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
