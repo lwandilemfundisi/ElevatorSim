@@ -1,5 +1,7 @@
-﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Entities;
+using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects;
+using ElevatorSim.Domain.Extensions;
 using Microservice.Framework.Domain.Aggregates;
 using Microservice.Framework.Domain.Extensions;
 
@@ -8,6 +10,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
     public class ElevatorControl 
         : AggregateRoot<ElevatorControl, ElevatorControlId>
     {
+        private IList<ManagedElevator> _elevators;
+        private Action<object, string> LazyLoader { get; set; }
+
         #region Constructors
 
         public ElevatorControl()
@@ -23,6 +28,12 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
         #endregion
 
         #region Properties
+
+        public IList<ManagedElevator> Elevators 
+        {
+            get => LazyLoader.Load(this, ref _elevators);
+            set => _elevators = value;
+        }
 
         #endregion
 
