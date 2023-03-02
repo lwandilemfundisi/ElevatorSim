@@ -8,11 +8,15 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events
     public class RequestedElevatorEvent
         : AggregateEvent<ElevatorControl, ElevatorControlId>
     {
-        public RequestedElevatorEvent(RequestElevetor requestElevetor)
+        public RequestedElevatorEvent(
+            RequestElevetor requestElevetor,
+            string selectedElevatorId)
         {
             RequestElevetor = requestElevetor;
+            SelectedElevatorId = selectedElevatorId;
         }
 
+        public string SelectedElevatorId { get; }
         public RequestElevetor RequestElevetor { get; }
     }
 }
