@@ -1,24 +1,22 @@
-﻿using ElevatorSim.Tests.Helpers;
-using Microservice.Framework.Domain.Aggregates;
-using Microservice.Framework.Domain.Commands;
-using Microsoft.Extensions.DependencyInjection;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorModel;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.Queries;
 using ElevatorSim.Domain.Extensions;
 using ElevatorSim.Persistence.ElevatorModelPersistence;
 using ElevatorSim.Persistence.Extensions;
-using Microservice.Framework.Common;
-using ElevatorSim.Domain.DomainModel.ElevatorModel;
-using System.Drawing;
-using Microservice.Framework.Domain.Queries;
-using ElevatorSim.Domain.DomainModel.ElevatorModel.Queries;
+using ElevatorSim.Tests.Helpers;
 using FluentAssertions;
+using Microservice.Framework.Common;
+using Microservice.Framework.Domain.Aggregates;
+using Microservice.Framework.Domain.Queries;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ElevatorSim.Tests.IntegrationTests
+namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Queries
 {
-    public class RequestElevatorScenarioTests : Test
+    public class GetElevatorQueryTest
     {
         private IServiceProvider _serviceProvider;
         private IAggregateStore _aggregateStore;
-        private ICommandBus _commandBus;
+        private IQueryProcessor _queryProcessor;
 
         [SetUp]
         public void SetUp()
@@ -31,7 +29,7 @@ namespace ElevatorSim.Tests.IntegrationTests
                 .BuildServiceProvider();
 
             _aggregateStore = _serviceProvider.GetRequiredService<IAggregateStore>();
-            _commandBus = _serviceProvider.GetRequiredService<ICommandBus>();
+            _queryProcessor = _serviceProvider.GetService<IQueryProcessor>();
         }
 
         [TearDown]
@@ -41,22 +39,41 @@ namespace ElevatorSim.Tests.IntegrationTests
         }
 
         [Test]
-        public async Task TestJust()
+        public async Task TestGetElevatorQuery_Positive()
         {
             //Arrange
             var testId = ElevatorId.New;
             await InitializeElevatorAggregateAsync(testId, 1, 10);
-            var queryProcessor = _serviceProvider.GetService<IQueryProcessor>();
 
             //Act
-            var result = await queryProcessor.ProcessAsync(new GetElevatorQuery(testId), CancellationToken.None);
+            var result = await _queryProcessor
+                .ProcessAsync(new GetElevatorQuery(testId), CancellationToken.None);
 
             //Assert
             result.Should().NotBeNull();
             result.Id.Should().Be(testId);
+            result.CurrentFloor.Should().Be(1);
+            result.Weightlimit.Should().Be(10);
         }
 
-        public Task InitializeElevatorAggregateAsync(ElevatorId id, uint floor, uint weightLimit)
+        [Test]
+        public async Task TestGetElevatorQuery_Negative()
+        {
+            //Arrange
+            var testId = ElevatorId.New;
+            await InitializeElevatorAggregateAsync(testId, 1, 10);
+
+            //Act
+            AsyncTestDelegate act = () => _queryProcessor
+                .ProcessAsync(new GetElevatorQuery(null), CancellationToken.None);
+
+            //Assert
+            Assert.That(act, Throws.TypeOf<InvariantException>());
+        }
+
+        #region Private Helper Methods
+
+        private Task InitializeElevatorAggregateAsync(ElevatorId id, uint floor, uint weightLimit)
         {
             return UpdateAsync<Elevator, ElevatorId>(id, a => a.InitializeElevator(floor, weightLimit));
         }
@@ -75,5 +92,8 @@ namespace ElevatorSim.Tests.IntegrationTests
                 },
                 CancellationToken.None);
         }
+
+        #endregion
+
     }
 }
