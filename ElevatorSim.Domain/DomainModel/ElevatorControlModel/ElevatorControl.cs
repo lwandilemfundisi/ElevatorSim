@@ -22,6 +22,10 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
 
         #endregion
 
+        #region Properties
+
+        #endregion
+
         #region Methods
 
         public void RequestElevator(RequestElevetor requestElevetor)
@@ -30,7 +34,15 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
                 .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
             //To implement logic to select appropriate elevator
-            Emit(new RequestedElevatorEvent(requestElevetor, string.Empty));
+            Emit(new RequestedElevatorEvent(requestElevetor));
+        }
+
+        public void AssignElevator(AssignedElevetor assignedElevetor)
+        {
+            AggregateSpecifications
+                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+
+            Emit(new AssignedElevatorEvent(assignedElevetor));
         }
 
         public void MoveElevator(string elevatorId, uint toFloor, uint toLoadPeople)
