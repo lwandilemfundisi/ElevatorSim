@@ -28,6 +28,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
         {
             AggregateSpecifications
                 .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+
             Emit(new RequestedElevatorEvent(requestElevetor));
         }
 
@@ -35,6 +36,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
         {
             AggregateSpecifications
                 .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+
             Emit(new MoveElevatorEvent(elevatorId, toFloor));
         }
 
