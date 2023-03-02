@@ -18,7 +18,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
         #region Virtual Methods
 
         public Task HandleAsync(
-            IDomainEvent<ElevatorControl, ElevatorControlId, RequestedElevatorEvent> domainEvent, 
+            IDomainEvent<ElevatorControl, ElevatorControlId, RequestedElevatorEvent> domainEvent,
             CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
