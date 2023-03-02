@@ -57,7 +57,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         public void DisableElevator()
         {
             AggregateSpecifications
-                .AggregateIsNew
+                .AggregateIsCreated
                 .ThrowDomainErrorIfNotSatisfied(this);
 
             ElevatorStatus = ElevatorStatuses.Of().Disabled;
