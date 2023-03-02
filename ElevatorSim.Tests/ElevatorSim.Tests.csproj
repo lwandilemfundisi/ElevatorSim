@@ -17,4 +17,12 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IntegrationTests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ElevatorSim.Domain\ElevatorSim.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
