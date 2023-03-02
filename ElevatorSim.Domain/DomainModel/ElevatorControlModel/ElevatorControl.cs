@@ -31,6 +31,13 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
             Emit(new RequestedElevatorEvent(requestElevetor));
         }
 
+        public void MoveElevator(string elevatorId, uint toFloor)
+        {
+            AggregateSpecifications
+                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+            Emit(new MoveElevatorEvent(elevatorId, toFloor));
+        }
+
         #endregion
     }
 }
