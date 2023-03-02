@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoMoq;
+using ElevatorSim.Domain.DomainModel.ElevatorControlModel;
 using Moq;
 
 namespace ElevatorSim.Tests.Helpers
@@ -12,6 +13,7 @@ namespace ElevatorSim.Tests.Helpers
         public void Setup() 
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _fixture.Customize<ElevatorControlId>(x => x.FromFactory(() => ElevatorControlId.New));
         }
 
         protected T A<T>()
