@@ -1,5 +1,9 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.Queries;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using Microservice.Framework.Common;
 using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
 using Microservice.Framework.Domain.Queries;
@@ -27,11 +31,28 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
 
         #region Virtual Methods
 
-        public Task HandleAsync(
+        public async Task HandleAsync(
             IDomainEvent<ElevatorControl, ElevatorControlId, MoveElevatorEvent> domainEvent,
             CancellationToken cancellationToken)
         {
-            return Task.CompletedTask;
+            var elevatorId = new ElevatorId(domainEvent.AggregateEvent.ElevatorId);
+            var floorMovingTo = domainEvent.AggregateEvent.ToFloor;
+            var elevator = await _queryProcessor
+                .ProcessAsync(new GetElevatorQuery(elevatorId), cancellationToken);
+
+            //check where elevator is, then decide on that if its up or down
+            if (elevator.CurrentFloor > floorMovingTo)
+                await _commandBus
+                    .PublishAsync(new RequestElevatorDownCommand(
+                        elevatorId, 
+                        new Move(floorMovingTo, 1)), cancellationToken);
+
+            else if(elevator.CurrentFloor < floorMovingTo)
+                await _commandBus
+                    .PublishAsync(new RequestElevatorUpCommand(
+                        elevatorId, 
+                        new Move(floorMovingTo, 1)), cancellationToken);
+            //else elevator is already on floor, tell it open doors
         }
 
         #endregion
