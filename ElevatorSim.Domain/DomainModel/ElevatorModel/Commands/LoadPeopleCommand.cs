@@ -1,4 +1,5 @@
-﻿using Microservice.Framework.Domain.Commands;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.ExecutionResults;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
@@ -10,17 +11,17 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
 
         public LoadPeopleCommand(
             ElevatorId aggregateId,
-            uint numberOfPeople)
+            Load load)
             : base(aggregateId)
         {
-            NumberOfPeople = numberOfPeople;
+            Load = load;
         }
 
         #endregion
 
         #region Properties
 
-        public uint NumberOfPeople { get; }
+        public Load Load { get; }
 
         #endregion
     }
@@ -35,7 +36,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Commands
             LoadPeopleCommand command,
             CancellationToken cancellationToken)
         {
-            aggregate.LoadPeople(command.NumberOfPeople);
+            aggregate.LoadPeople(command.Load);
             return Task.FromResult(ExecutionResult.Success());
         }
 

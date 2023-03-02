@@ -55,7 +55,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
             else
                 //if the elevetor is at the requested floor, then it loads
                 await _commandBus.PublishAsync(new LoadPeopleCommand(
-                    elevatorId, default), cancellationToken);
+                    elevatorId, new Load(domainEvent.AggregateEvent.ToLoadPeople)), cancellationToken);
         }
 
         #endregion

@@ -30,6 +30,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 
         public uint Weightlimit { get; set; }
 
+        public uint CurrentWeight { get; set; }
+
         public ElevatorStatus ElevatorStatus { get; set; }
 
         #endregion
@@ -87,15 +89,17 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             Emit(new ElevatorMovedDownEvent());
         }
 
-        public void LoadPeople(uint numberOfPeople)
+        public void LoadPeople(Load load)
         {
             AggregateSpecifications
                 .AggregateIsCreated
+                .And(load.GetWeightSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
+            CurrentWeight = load.NumberOfPeople;
             ElevatorStatus = ElevatorStatuses.Of().InLoading;
 
-            Emit(new LoadedPeopleEvent(numberOfPeople));
+            Emit(new LoadedPeopleEvent(load.NumberOfPeople));
         }
 
         #endregion
