@@ -1,6 +1,21 @@
-﻿namespace ElevatorSim.Tests.Helpers
+﻿using AutoFixture;
+
+namespace ElevatorSim.Tests.Helpers
 {
-    public class TestsFor<T> : Test
+    public abstract class TestsFor<TSut> : Test
     {
+        private Lazy<TSut> _lazySut;
+        protected TSut Sut => _lazySut.Value;
+
+        [SetUp]
+        public void SetUpTestsFor()
+        {
+            _lazySut = new Lazy<TSut>(CreateSut);
+        }
+
+        protected virtual TSut CreateSut()
+        {
+            return _fixture.Create<TSut>();
+        }
     }
 }
