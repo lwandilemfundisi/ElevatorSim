@@ -44,7 +44,6 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
             AggregateSpecifications
                 .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
 
-            //To implement logic to select appropriate elevator
             Emit(new RequestedElevatorEvent(requestElevetor));
         }
 
