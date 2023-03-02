@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElevatorSim.Persistence.ElevatorControlModelPersistence.Migrations
 {
     [DbContext(typeof(ElevatorControlContext))]
-    [Migration("20230302183811_Init")]
+    [Migration("20230302184554_Init")]
     partial class Init
     {
         /// <inheritdoc />

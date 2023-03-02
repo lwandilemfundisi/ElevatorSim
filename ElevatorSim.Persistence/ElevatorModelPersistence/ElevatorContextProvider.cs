@@ -11,7 +11,7 @@ namespace ElevatorSim.Persistence.ElevatorModelPersistence
         public ElevatorContextProvider(IConfiguration configuration)
         {
             _options = new DbContextOptionsBuilder<ElevatorContext>()
-                .UseSqlServer(configuration["DataConnection:Database"])
+                .UseSqlServer(configuration["DataConnection:ElevatorDatabase"])
                 .Options;
         }
 
