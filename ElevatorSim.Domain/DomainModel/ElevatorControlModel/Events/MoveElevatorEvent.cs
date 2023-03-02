@@ -9,10 +9,11 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events
     {
         #region Constructors
 
-        public MoveElevatorEvent(string elevatorId, uint toFloor)
+        public MoveElevatorEvent(string elevatorId, uint toFloor, uint toLoadPeople)
         {
             ElevatorId = elevatorId;
             ToFloor = toFloor;
+            ToLoadPeople = toLoadPeople;
         }
 
         #endregion
@@ -21,6 +22,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events
 
         public string ElevatorId { get; }
         public uint ToFloor { get; }
+        public uint ToLoadPeople { get; }
 
         #endregion
     }

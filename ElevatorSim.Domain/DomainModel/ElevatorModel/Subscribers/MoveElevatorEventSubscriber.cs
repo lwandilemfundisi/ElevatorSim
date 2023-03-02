@@ -44,15 +44,18 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
             if (elevator.CurrentFloor > floorMovingTo)
                 await _commandBus
                     .PublishAsync(new RequestElevatorDownCommand(
-                        elevatorId, 
-                        new Move(floorMovingTo, 1)), cancellationToken);
+                        elevatorId,
+                        new Move(floorMovingTo)), cancellationToken);
 
-            else if(elevator.CurrentFloor < floorMovingTo)
+            else if (elevator.CurrentFloor < floorMovingTo)
                 await _commandBus
                     .PublishAsync(new RequestElevatorUpCommand(
-                        elevatorId, 
-                        new Move(floorMovingTo, 1)), cancellationToken);
-            //else elevator is already on floor, tell it open doors
+                        elevatorId,
+                        new Move(floorMovingTo)), cancellationToken);
+            else
+                //if the elevetor is at the requested floor, then it loads
+                await _commandBus.PublishAsync(new LoadPeopleCommand(
+                    elevatorId, default), cancellationToken);
         }
 
         #endregion

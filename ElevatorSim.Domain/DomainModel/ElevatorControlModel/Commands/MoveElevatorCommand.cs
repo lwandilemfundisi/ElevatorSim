@@ -11,11 +11,13 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
         public MoveElevatorCommand(
             ElevatorControlId aggregateId, 
             string elevatorId,
-            uint toFloor)
+            uint toFloor,
+            uint toLoadPeople)
             : base(aggregateId)
         {
             ToFloor = toFloor;
             ElevatorId = elevatorId;
+            ToLoadPeople = toLoadPeople;
         }
 
         #endregion
@@ -25,6 +27,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
         public string ElevatorId { get; }
 
         public uint ToFloor { get; }
+
+        public uint ToLoadPeople { get; }
 
         #endregion
 
@@ -40,7 +44,11 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
             MoveElevatorCommand command, 
             CancellationToken cancellationToken)
         {
-            aggregate.MoveElevator(command.ElevatorId, command.ToFloor);
+            aggregate.MoveElevator(
+                command.ElevatorId, 
+                command.ToFloor, 
+                command.ToLoadPeople);
+
             return Task.FromResult(ExecutionResult.Success());
         }
 

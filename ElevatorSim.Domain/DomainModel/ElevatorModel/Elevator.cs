@@ -47,7 +47,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 
             CurrentFloor = floor;
             Weightlimit = weightLimit;
-            ElevatorStatus = ElevatorStatuses.Of().InOperation;
+            ElevatorStatus = ElevatorStatuses.Of().InReady;
 
             Emit(new ElevatorInitializedEvent());
         }
@@ -67,11 +67,10 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         {
             AggregateSpecifications
                 .AggregateIsCreated
-                .And(move.GetWeightSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
             CurrentFloor = move.FloorMovingTo;
-            Weightlimit = move.Weight;
+            ElevatorStatus = ElevatorStatuses.Of().InOperation;
 
             Emit(new ElevatorMovedUpEvent());
         }
@@ -80,13 +79,23 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         {
             AggregateSpecifications
                 .AggregateIsCreated
-                .And(move.GetWeightSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
             CurrentFloor = move.FloorMovingTo;
-            Weightlimit = move.Weight;
+            ElevatorStatus = ElevatorStatuses.Of().InOperation;
 
             Emit(new ElevatorMovedDownEvent());
+        }
+
+        public void LoadPeople(uint numberOfPeople)
+        {
+            AggregateSpecifications
+                .AggregateIsCreated
+                .ThrowDomainErrorIfNotSatisfied(this);
+
+            ElevatorStatus = ElevatorStatuses.Of().InLoading;
+
+            Emit(new LoadedPeopleEvent(numberOfPeople));
         }
 
         #endregion

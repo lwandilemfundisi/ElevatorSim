@@ -12,16 +12,19 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Jobs
         private readonly ElevatorControlId _aggregateId;
         private readonly string _elevatorId;
         private readonly uint _toFloor;
+        private readonly uint _toLoadPeople;
 
         #region Constructors
 
         public AssignElevatorJob(
             ElevatorControlId aggregateId, 
             string elevatorId,
-            uint toFloor) 
+            uint toFloor,
+            uint toLoadPeople) 
         {
             _aggregateId = aggregateId;
             _elevatorId = elevatorId;
+            _toLoadPeople = toLoadPeople;
             _toFloor = toFloor;
         }
 
@@ -40,7 +43,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Jobs
                 .PublishAsync(new MoveElevatorCommand(
                     _aggregateId, 
                     _elevatorId, 
-                    _toFloor), cancellationToken);
+                    _toFloor,
+                    _toLoadPeople), cancellationToken);
         }
 
         #endregion

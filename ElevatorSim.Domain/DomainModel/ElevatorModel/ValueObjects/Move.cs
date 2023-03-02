@@ -1,6 +1,4 @@
-﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.Specifications;
-using Microservice.Framework.Common;
-using Microservice.Framework.Domain;
+﻿using Microservice.Framework.Common;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
 {
@@ -9,11 +7,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
     {
         #region Constructors
 
-        public Move(
-            uint floorMovingTo,
-            uint weight)
+        public Move(uint floorMovingTo)
         {
-            Weight = weight;
             FloorMovingTo = floorMovingTo;
         }
 
@@ -22,17 +17,6 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
         #region Properties
 
         public uint FloorMovingTo { get; }
-
-        public uint Weight { get; }
-
-        #endregion
-
-        #region Methods
-
-        public Specification<Elevator> GetWeightSpecification()
-        {
-            return new WeightLimitSpecification(Weight);
-        }
 
         #endregion
     }

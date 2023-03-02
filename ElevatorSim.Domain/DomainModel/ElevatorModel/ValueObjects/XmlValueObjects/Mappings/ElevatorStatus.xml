@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ValueObjects>
 	<ValueObject>
+		<Code>INR</Code>
+		<Text>In Ready State</Text>
+	</ValueObject>
+	<ValueObject>
 		<Code>IOP</Code>
-		<Text>In Operation</Text>
+		<Text>In Operation State</Text>
 	</ValueObject>
 	<ValueObject>
 		<Code>DIS</Code>
-		<Text>Disabled</Text>
+		<Text>In Disabled State</Text>
+	</ValueObject>
+	<ValueObject>
+		<Code>ILD</Code>
+		<Text>In Loading State</Text>
 	</ValueObject>
 </ValueObjects>

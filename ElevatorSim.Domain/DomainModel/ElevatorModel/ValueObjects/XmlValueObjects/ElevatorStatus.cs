@@ -13,7 +13,11 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects.XmlValueObje
     {
         #region ValueObjects
 
+        public ElevatorStatus InReady { get { return FindValueObject("INR"); } }
+
         public ElevatorStatus InOperation { get { return FindValueObject("IOP"); } }
+
+        public ElevatorStatus InLoading { get { return FindValueObject("ILD"); } }
 
         public ElevatorStatus Disabled { get { return FindValueObject("DIS"); } }
 
