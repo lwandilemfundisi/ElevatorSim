@@ -1,44 +1,14 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorModel;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Queries;
-using ElevatorSim.Domain.Extensions;
-using ElevatorSim.Persistence;
-using ElevatorSim.Persistence.Extensions;
 using ElevatorSim.Tests.Helpers;
 using FluentAssertions;
 using Microservice.Framework.Common;
-using Microservice.Framework.Domain.Aggregates;
-using Microservice.Framework.Domain.Queries;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Queries
 {
     [Category("Unit")]
-    public class GetElevatorQueryTest
+    public class GetElevatorQueryTest : Test
     {
-        private IServiceProvider _serviceProvider;
-        private IAggregateStore _aggregateStore;
-        private IQueryProcessor _queryProcessor;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _serviceProvider = new ServiceCollection()
-                .AddLogging()
-                .ConfigureElevatorSimDomain()
-                .ConfigureElevatorSimPersistence<ElevatorSimContext, TestElevatorSimContextProvider>()
-                .ServiceCollection
-                .BuildServiceProvider();
-
-            _aggregateStore = _serviceProvider.GetRequiredService<IAggregateStore>();
-            _queryProcessor = _serviceProvider.GetService<IQueryProcessor>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            ((IDisposable)_serviceProvider).Dispose();
-        }
-
         [Test]
         public async Task TestGetElevatorQuery_Positive()
         {
@@ -71,30 +41,5 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Queries
             //Assert
             Assert.That(act, Throws.TypeOf<InvariantException>());
         }
-
-        #region Private Helper Methods
-
-        private Task InitializeElevatorAggregateAsync(ElevatorId id, uint floor, uint weightLimit)
-        {
-            return UpdateAsync<Elevator, ElevatorId>(id, a => a.InitializeElevator(floor, weightLimit));
-        }
-
-        private async Task UpdateAsync<TAggregate, TIdentity>(TIdentity id, Action<TAggregate> action)
-            where TAggregate : class, IAggregateRoot<TIdentity>
-            where TIdentity : IIdentity
-        {
-            await _aggregateStore.UpdateAsync<TAggregate, TIdentity>(
-                id,
-                SourceId.New,
-                (a, c) =>
-                {
-                    action(a);
-                    return Task.FromResult(0);
-                },
-                CancellationToken.None);
-        }
-
-        #endregion
-
     }
 }
