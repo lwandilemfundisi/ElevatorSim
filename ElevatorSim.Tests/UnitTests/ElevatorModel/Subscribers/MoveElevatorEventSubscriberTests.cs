@@ -8,6 +8,7 @@ using Moq;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Subscribers
 {
+    [Category("Unit")]
     public class MoveElevatorEventSubscriberTests 
         : TestsFor<DispatchToEventSubscribers>
     {

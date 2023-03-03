@@ -14,6 +14,7 @@ using Microservice.Framework.Domain.Exceptions;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
 {
+    [Category("Unit")]
     public class RequestElevatorDownCommandTest
     {
         private IServiceProvider _serviceProvider;

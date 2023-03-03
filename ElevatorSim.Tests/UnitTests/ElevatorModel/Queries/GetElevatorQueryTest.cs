@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Queries
 {
+    [Category("Unit")]
     public class GetElevatorQueryTest
     {
         private IServiceProvider _serviceProvider;

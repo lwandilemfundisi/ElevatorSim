@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
 {
+    [Category("Unit")]
     public class LoadPeopleCommandTest
     {
         private IServiceProvider _serviceProvider;
