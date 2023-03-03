@@ -1,20 +1,20 @@
-﻿using ElevatorSim.Domain.DomainModel.ElevatorModel;
-using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
-using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
-using ElevatorSim.Domain.Extensions;
-using ElevatorSim.Persistence.ElevatorModelPersistence;
-using ElevatorSim.Persistence.Extensions;
+﻿using ElevatorSim.Persistence.ElevatorModelPersistence;
 using ElevatorSim.Tests.Helpers;
-using FluentAssertions;
-using Microservice.Framework.Common;
 using Microservice.Framework.Domain.Aggregates;
 using Microservice.Framework.Domain.Commands;
-using Microservice.Framework.Domain.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
+using ElevatorSim.Persistence.Extensions;
+using ElevatorSim.Domain.Extensions;
+using ElevatorSim.Domain.DomainModel.ElevatorModel;
+using Microservice.Framework.Common;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using FluentAssertions;
+using Microservice.Framework.Domain.Exceptions;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
 {
-    public class LoadPeopleCommandTest
+    public class RequestElevatorUpCommandTest
     {
         private IServiceProvider _serviceProvider;
         private IAggregateStore _aggregateStore;
@@ -41,32 +41,32 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
         }
 
         [Test]
-        public async Task TestLoadPeopleCommand_Positive()
+        public async Task TestRequestElevatorUpCommand_Positive()
         {
             //Arrange
             var testId = ElevatorId.New;
-            var load = new Load(2);
+            var move = new Move(2);
             await InitializeElevatorAggregateAsync(testId, 1, 10);
 
             //Act
             var result = await _commandBus
-                .PublishAsync(new LoadPeopleCommand(testId, load), CancellationToken.None);
+                .PublishAsync(new RequestElevatorUpCommand(testId, move), CancellationToken.None);
 
             //Assert
             result.IsSuccess.Should().BeTrue();
         }
 
         [Test]
-        public async Task TestLoadPeopleCommand_Negative()
+        public async Task TestRequestElevatorUpCommand_Negative()
         {
             //Arrange
             var testId = ElevatorId.New;
-            var load = new Load(11);
-            await InitializeElevatorAggregateAsync(testId, 1, 10);
+            var move = new Move(1);
+            await InitializeElevatorAggregateAsync(testId, 2, 10);
 
             //Act
             AsyncTestDelegate act = () => _commandBus
-                .PublishAsync(new LoadPeopleCommand(testId, load), CancellationToken.None);
+                .PublishAsync(new RequestElevatorUpCommand(testId, move), CancellationToken.None);
 
             //Assert
             Assert.That(act, Throws.TypeOf<DomainError>());

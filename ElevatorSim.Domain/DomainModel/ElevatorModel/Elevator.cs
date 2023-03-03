@@ -69,6 +69,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         {
             AggregateSpecifications
                 .AggregateIsCreated
+                .And(move.GetElevatorMoveUpSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
             CurrentFloor = move.FloorMovingTo;
@@ -81,6 +82,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
         {
             AggregateSpecifications
                 .AggregateIsCreated
+                .And(move.GetElevatorMoveDownSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
             CurrentFloor = move.FloorMovingTo;
