@@ -3,7 +3,6 @@ using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Queries;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
-using Microservice.Framework.Common;
 using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
 using Microservice.Framework.Domain.Queries;
