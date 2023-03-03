@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="IntegrationTests\" />
+    <Folder Include="UnitTests\ElevatorControlModel\Commands\" />
   </ItemGroup>
 
 </Project>

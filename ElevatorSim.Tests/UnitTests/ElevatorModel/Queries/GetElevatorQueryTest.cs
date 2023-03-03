@@ -28,12 +28,8 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Queries
         }
 
         [Test]
-        public async Task TestGetElevatorQuery_Negative()
+        public void TestGetElevatorQuery_Negative()
         {
-            //Arrange
-            var testId = ElevatorId.New;
-            await InitializeElevatorAggregateAsync(testId, 1, 10);
-
             //Act
             AsyncTestDelegate act = () => _queryProcessor
                 .ProcessAsync(new GetElevatorQuery(null), CancellationToken.None);

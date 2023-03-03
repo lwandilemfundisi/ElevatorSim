@@ -42,7 +42,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
         public void InitializeElevatorControl(InitializeControl initializeControl)
         {
             AggregateSpecifications
-                .AggregateIsCreated
+                .AggregateIsNew
                 .And(initializeControl.GetAtLeastOneElevatorSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 

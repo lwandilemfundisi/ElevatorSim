@@ -1,6 +1,8 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoMoq;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel;
+using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Entities;
+using ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects;
 using ElevatorSim.Domain.DomainModel.ElevatorModel;
 using ElevatorSim.Persistence;
 using Microservice.Framework.Common;
@@ -26,6 +28,7 @@ namespace ElevatorSim.Tests.Helpers
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
             _fixture.Customize<ElevatorControlId>(x => x.FromFactory(() => ElevatorControlId.New));
             _fixture.Customize<ElevatorId>(x => x.FromFactory(() => ElevatorId.New));
+            _fixture.Customize<ManagedElevatorId>(x => x.FromFactory(() => ManagedElevatorId.New));
 
             _serviceProvider = new ServiceCollection()
                 .AddLogging()
@@ -67,6 +70,11 @@ namespace ElevatorSim.Tests.Helpers
         protected Task InitializeElevatorAggregateAsync(ElevatorId id, uint floor, uint weightLimit)
         {
             return UpdateAsync<Elevator, ElevatorId>(id, a => a.InitializeElevator(floor, weightLimit));
+        }
+
+        protected Task InitializeElevatorControlAggregateAsync(ElevatorControlId id, InitializeControl initializeControl)
+        {
+            return UpdateAsync<ElevatorControl, ElevatorControlId>(id, a => a.InitializeElevatorControl(initializeControl));
         }
 
         protected async Task UpdateAsync<TAggregate, TIdentity>(TIdentity id, Action<TAggregate> action)

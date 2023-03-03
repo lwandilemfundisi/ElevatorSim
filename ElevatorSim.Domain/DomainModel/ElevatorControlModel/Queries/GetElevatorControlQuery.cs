@@ -15,6 +15,12 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Queries
         }
 
         #endregion
+
+        #region Virtual Members
+
+        protected override bool FailOnNoCriteriaSpecified => true;
+
+        #endregion
     }
 
     public class GetElevatorControlQueryHandler
