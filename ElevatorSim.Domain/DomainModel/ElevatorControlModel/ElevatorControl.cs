@@ -39,6 +39,18 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
 
         #region Methods
 
+        public void InitializeElevatorControl(InitializeControl initializeControl)
+        {
+            AggregateSpecifications
+                .AggregateIsCreated
+                .And(initializeControl.GetAtLeastOneElevatorSpecification())
+                .ThrowDomainErrorIfNotSatisfied(this);
+
+            Elevators = initializeControl.Elevators;
+
+            Emit(new InitializedElevatorControlEvent());
+        }
+
         public void RequestElevator(RequestElevetor requestElevetor)
         {
             AggregateSpecifications
