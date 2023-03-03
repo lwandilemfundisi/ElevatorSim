@@ -1,16 +1,16 @@
-﻿using ElevatorSim.Persistence.ElevatorModelPersistence;
-using ElevatorSim.Tests.Helpers;
-using Microservice.Framework.Domain.Aggregates;
-using Microservice.Framework.Domain.Commands;
-using Microsoft.Extensions.DependencyInjection;
-using ElevatorSim.Persistence.Extensions;
-using ElevatorSim.Domain.Extensions;
-using ElevatorSim.Domain.DomainModel.ElevatorModel;
-using Microservice.Framework.Common;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorModel;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using ElevatorSim.Domain.Extensions;
+using ElevatorSim.Persistence;
+using ElevatorSim.Persistence.Extensions;
+using ElevatorSim.Tests.Helpers;
 using FluentAssertions;
+using Microservice.Framework.Common;
+using Microservice.Framework.Domain.Aggregates;
+using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Exceptions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
 {
@@ -27,7 +27,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
             _serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .ConfigureElevatorSimDomain()
-                .ConfigureElevatorSimPersistence<ElevatorContext, TestElevatorContextProvider>()
+                .ConfigureElevatorSimPersistence<ElevatorSimContext, TestElevatorSimContextProvider>()
                 .ServiceCollection
                 .BuildServiceProvider();
 

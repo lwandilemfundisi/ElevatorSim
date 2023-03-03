@@ -2,7 +2,7 @@
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
 using ElevatorSim.Domain.Extensions;
-using ElevatorSim.Persistence.ElevatorModelPersistence;
+using ElevatorSim.Persistence;
 using ElevatorSim.Persistence.Extensions;
 using ElevatorSim.Tests.Helpers;
 using FluentAssertions;
@@ -27,7 +27,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
             _serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .ConfigureElevatorSimDomain()
-                .ConfigureElevatorSimPersistence<ElevatorContext, TestElevatorContextProvider>()
+                .ConfigureElevatorSimPersistence<ElevatorSimContext, TestElevatorSimContextProvider>()
                 .ServiceCollection
                 .BuildServiceProvider();
 

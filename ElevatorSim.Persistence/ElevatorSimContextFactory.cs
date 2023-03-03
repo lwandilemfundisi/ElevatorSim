@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace ElevatorSim.Persistence.ElevatorControlModelPersistence
+namespace ElevatorSim.Persistence
 {
-    public class ElevatorControlContextFactory : IDesignTimeDbContextFactory<ElevatorControlContext>
+    public class ElevatorSimContextFactory : IDesignTimeDbContextFactory<ElevatorSimContext>
     {
-        public ElevatorControlContext CreateDbContext(string[] args)
+        public ElevatorSimContext CreateDbContext(string[] args)
         {
             var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -16,10 +16,10 @@ namespace ElevatorSim.Persistence.ElevatorControlModelPersistence
                 .AddJsonFile($"appsettings.{envName}.json", optional: false)
                 .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ElevatorControlContext>();
-            optionsBuilder.UseSqlServer(configuration["DataConnection:ElevatorControlDatabase"]);
+            var optionsBuilder = new DbContextOptionsBuilder<ElevatorSimContext>();
+            optionsBuilder.UseSqlServer(configuration["DataConnection:ElevatorSimDatabase"]);
 
-            return new ElevatorControlContext(optionsBuilder.Options);
+            return new ElevatorSimContext(optionsBuilder.Options);
         }
     }
 }

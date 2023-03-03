@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSim.Persistence", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSim.Tests", "ElevatorSim.Tests\ElevatorSim.Tests.csproj", "{003ECF95-7917-4E8E-B1FD-B5822A0D1EA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorSim.Console", "ElevatorSim.Console\ElevatorSim.Console.csproj", "{55365304-838E-4E59-909F-3C4EF888D5AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSim.Console", "ElevatorSim.Console\ElevatorSim.Console.csproj", "{55365304-838E-4E59-909F-3C4EF888D5AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
