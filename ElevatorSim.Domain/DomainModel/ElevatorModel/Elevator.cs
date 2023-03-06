@@ -40,13 +40,15 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
 
         public void InitializeElevator(
             uint floor,
-            uint weightLimit
+            uint weightLimit,
+            uint currentWeight = 0
             )
         {
             AggregateSpecifications
                 .AggregateIsNew
                 .ThrowDomainErrorIfNotSatisfied(this);
 
+            CurrentWeight = currentWeight;
             CurrentFloor = floor;
             Weightlimit = weightLimit;
             ElevatorStatus = ElevatorStatuses.Of().InReady;

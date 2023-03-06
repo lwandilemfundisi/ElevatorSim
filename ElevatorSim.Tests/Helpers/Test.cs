@@ -67,9 +67,14 @@ namespace ElevatorSim.Tests.Helpers
             return mock;
         }
 
-        protected Task InitializeElevatorAggregateAsync(ElevatorId id, uint floor, uint weightLimit)
+        protected Task InitializeElevatorAggregateAsync(
+            ElevatorId id, 
+            uint floor, 
+            uint weightLimit, 
+            uint currentWeight = 0)
         {
-            return UpdateAsync<Elevator, ElevatorId>(id, a => a.InitializeElevator(floor, weightLimit));
+            return UpdateAsync<Elevator, ElevatorId>(id, a 
+                => a.InitializeElevator(floor, weightLimit, currentWeight));
         }
 
         protected Task InitializeElevatorControlAggregateAsync(ElevatorControlId id, InitializeControl initializeControl)
