@@ -7,7 +7,7 @@ using Microservice.Framework.Domain.Subscribers;
 namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
 {
     public class AssignedElevatorEventSubscriber
-        : ISubscribeAsynchronousTo<ElevatorControl, ElevatorControlId, AssignedElevatorEvent>
+        : ISubscribeSynchronousTo<ElevatorControl, ElevatorControlId, AssignedElevatorEvent>
     {
         private readonly IJobScheduler _jobScheduler;
 
@@ -29,7 +29,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
             var job = new AssignElevatorJob(
                 domainEvent.AggregateIdentity,
                 domainEvent.AggregateEvent.AssignedElevetor.ElevatorId,
-                domainEvent.AggregateEvent.AssignedElevetor.FloorNumber,
+                domainEvent.AggregateEvent.AssignedElevetor.FromFloorNumber,
+                domainEvent.AggregateEvent.AssignedElevetor.ToFloorNumber,
                 domainEvent.AggregateEvent.AssignedElevetor.NumberOfPeople);
 
             return _jobScheduler.ScheduleNowAsync(job, cancellationToken);

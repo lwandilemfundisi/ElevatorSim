@@ -11,7 +11,7 @@ using Microservice.Framework.Domain.Subscribers;
 namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
 {
     public class RequestedElevatorEventSubscriber
-        : ISubscribeAsynchronousTo<ElevatorControl, ElevatorControlId, RequestedElevatorEvent>
+        : ISubscribeSynchronousTo<ElevatorControl, ElevatorControlId, RequestedElevatorEvent>
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryProcessor _queryProcessor;
@@ -41,14 +41,15 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
                 throw new Exception("No elevators to select from!");
 
             var elevatorCount = elevatorControl.Elevators.Count();
-            var roundRobinIdx = (int)domainEvent.AggregateEvent.RequestElevetor.FloorNumber % elevatorCount;
+            var roundRobinIdx = (int)domainEvent.AggregateEvent.RequestElevetor.ToFloorNumber % elevatorCount;
             var selectedElevatorId = elevatorControl.Elevators[roundRobinIdx].ElevatorId;
 
             await _commandBus.PublishAsync(new AssignElevatorCommand(
                 domainEvent.AggregateIdentity,
                 new AssignedElevator(
                     selectedElevatorId,
-                    domainEvent.AggregateEvent.RequestElevetor.FloorNumber,
+                    domainEvent.AggregateEvent.RequestElevetor.FromFloor,
+                    domainEvent.AggregateEvent.RequestElevetor.ToFloorNumber,
                     domainEvent.AggregateEvent.RequestElevetor.NumberOfPeople)
                 ), cancellationToken);
         }

@@ -21,7 +21,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorControlModel.Commands
             var result = await _commandBus
                 .PublishAsync(new AssignElevatorCommand(
                     testId, 
-                    new AssignedElevator(elevatorId, 2, 3)), CancellationToken.None);
+                    new AssignedElevator(elevatorId, 1, 2, 3)), CancellationToken.None);
 
             //Assert
             result.IsSuccess.Should().BeTrue();

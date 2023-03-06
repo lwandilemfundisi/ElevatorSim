@@ -35,12 +35,13 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
             CancellationToken cancellationToken)
         {
             var elevatorId = new ElevatorId(domainEvent.AggregateEvent.ElevatorId);
+            var fromFloor = domainEvent.AggregateEvent.FromFloor;
             var floorMovingTo = domainEvent.AggregateEvent.ToFloor;
             var elevator = await _queryProcessor
                 .ProcessAsync(new GetElevatorQuery(elevatorId), cancellationToken);
 
             //check where elevator is, then decide on that if its up or down
-            if (elevator.CurrentFloor > floorMovingTo)
+            if (elevator.CurrentFloor > fromFloor)
                 await _commandBus
                     .PublishAsync(new RequestElevatorDownCommand(
                         elevatorId,
@@ -48,7 +49,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
                             floorMovingTo,
                             domainEvent.AggregateEvent.ToLoadPeople)), cancellationToken);
 
-            else if (elevator.CurrentFloor < floorMovingTo)
+            else if (elevator.CurrentFloor < fromFloor)
                 await _commandBus
                     .PublishAsync(new RequestElevatorUpCommand(
                         elevatorId,

@@ -9,11 +9,13 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects
 
         public AssignedElevator(
             string elevatorId,
-            uint floorNumber,
+            uint fromfloorNumber,
+            uint tofloorNumber,
             uint numberOfPeople)
         {
             ElevatorId = elevatorId;
-            FloorNumber = floorNumber;
+            FromFloorNumber = fromfloorNumber;
+            ToFloorNumber = tofloorNumber;
             NumberOfPeople = numberOfPeople;
         }
 
@@ -23,7 +25,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects
 
         public string ElevatorId { get; }
 
-        public uint FloorNumber { get; }
+        public uint FromFloorNumber { get; }
+
+        public uint ToFloorNumber { get; }
 
         public uint NumberOfPeople { get; }
 

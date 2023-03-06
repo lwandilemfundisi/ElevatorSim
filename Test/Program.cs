@@ -48,7 +48,7 @@ await InitializeElevatorControlAggregateAsync(testElevatorControlId, initControl
 var result = await _commandBus
     .PublishAsync(new RequestElevatorCommand(
         testElevatorControlId,
-        new RequestElevetor(2, 3)), CancellationToken.None);
+        new RequestElevetor(1, 2, 3)), CancellationToken.None);
 
 
 // Keep the console window open

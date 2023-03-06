@@ -29,9 +29,7 @@ namespace ElevatorSim.Tests.IntegrationTests
             var result = await _commandBus
                 .PublishAsync(new RequestElevatorCommand(
                     testElevatorControlId, 
-                    new RequestElevetor(2, 3)), CancellationToken.None);
-
-            Thread.Sleep(150000);
+                    new RequestElevetor(1, 2, 3)), CancellationToken.None);
 
         }
     }

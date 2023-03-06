@@ -8,10 +8,12 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects
         #region Constructors
 
         public RequestElevetor(
-            uint floorNumber,
+            uint fromFloor,
+            uint tofloorNumber,
             uint numberOfPeople)
         {
-            FloorNumber = floorNumber;
+            FromFloor = fromFloor;
+            ToFloorNumber = tofloorNumber;
             NumberOfPeople = numberOfPeople;
         }
 
@@ -19,7 +21,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects
 
         #region Properties
 
-        public uint FloorNumber { get; }
+        public uint FromFloor { get; }
+
+        public uint ToFloorNumber { get; }
 
         public uint NumberOfPeople { get; }
 
