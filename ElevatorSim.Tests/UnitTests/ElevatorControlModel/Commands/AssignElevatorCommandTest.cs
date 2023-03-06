@@ -11,7 +11,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorControlModel.Commands
     public class AssignElevatorCommandTest : Test
     {
         [Test]
-        public async Task TestDisableElevatorCommand_Positive()
+        public async Task TestAssignElevatorCommand_Positive()
         {
             //Arrange
             var testId = A<ElevatorControlId>();
