@@ -9,14 +9,19 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Events
     {
         #region Constructors
 
-        public DeliveredLoadEvent(uint deliveredLoad) 
+        public DeliveredLoadEvent(
+            uint deliveredLoad,
+            uint floorDeliveredTo) 
         {
             DeliveredLoad = deliveredLoad;
+            FloorDeliveredTo = floorDeliveredTo;
         }
 
         #endregion
 
         #region Properties
+
+        public uint FloorDeliveredTo { get; }
 
         public uint DeliveredLoad { get; }
 

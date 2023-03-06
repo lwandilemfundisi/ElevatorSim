@@ -38,6 +38,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
             IDomainEvent<Elevator, ElevatorId, ElevatorMovedUpEvent> domainEvent, 
             CancellationToken cancellationToken)
         {
+            _logger.LogInformation($"Elevator has moved up to {domainEvent.AggregateEvent.MovedToFloor}!");
+
             //get elevator status
             var elevator = await _queryProcessor
                 .ProcessAsync(new GetElevatorQuery(

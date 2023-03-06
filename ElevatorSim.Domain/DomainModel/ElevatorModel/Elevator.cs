@@ -116,7 +116,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             CurrentWeight -= loadToDeliver.LoadToDeliver;
             ElevatorStatus = ElevatorStatuses.Of().InReady;
 
-            Emit(new DeliveredLoadEvent(loadToDeliver.LoadToDeliver));
+            Emit(new DeliveredLoadEvent(loadToDeliver.LoadToDeliver, CurrentFloor));
         }
 
         #endregion
