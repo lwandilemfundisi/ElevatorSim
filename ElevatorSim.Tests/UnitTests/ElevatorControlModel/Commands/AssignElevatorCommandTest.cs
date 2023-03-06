@@ -1,9 +1,7 @@
-﻿using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
-using ElevatorSim.Domain.DomainModel.ElevatorModel;
-using ElevatorSim.Tests.Helpers;
+﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects;
-using ElevatorSim.Domain.DomainModel.ElevatorControlModel;
+using ElevatorSim.Tests.Helpers;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorControlModel.Commands
 {
