@@ -1,4 +1,5 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Entities;
+using Microservice.Framework.Common;
 using Microservice.Framework.Domain;
 using Microservice.Framework.Domain.Rules.Notifications;
 
@@ -22,7 +23,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Specifications
 
         protected override Notification IsNotSatisfiedBecause(ElevatorControl obj)
         {
-            if(!_elevators.Any()) 
+            if(!_elevators.HasItems()) 
             {
                 return Notification.Create(new Message
                 {

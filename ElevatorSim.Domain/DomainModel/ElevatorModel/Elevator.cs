@@ -104,6 +104,19 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             Emit(new LoadedPeopleEvent(load.NumberOfPeople));
         }
 
+        public void DeliverLoad(DeliverLoad loadToDeliver)
+        {
+            AggregateSpecifications
+                .AggregateIsCreated
+                .And(loadToDeliver.GetDeliverLoadSpecification())
+                .ThrowDomainErrorIfNotSatisfied(this);
+
+            CurrentWeight -= loadToDeliver.LoadToDeliver;
+            ElevatorStatus = ElevatorStatuses.Of().InReady;
+
+            Emit(new DeliveredLoadEvent(loadToDeliver.LoadToDeliver));
+        }
+
         #endregion
     }
 }
