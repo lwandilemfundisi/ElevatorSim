@@ -14,6 +14,6 @@
  - Once the elevator is loaded it then moves the load to the designated floor of choice
  - Once it reaches the designated floor it then unloads the elevator (updating the elevator status and current load it has all this information is stored on DB as it occurs)
 
- For visual representation of these events occuring I implemented the basic Event/Publish (on the Domain) for the console (found in this url https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/events/how-to-publish-events-that-conform-to-net-framework-guidelines)
+ For visual representation of these events occuring I implemented basic logging at subscriber level
 
- To add more information about the simulation as I develop it below here
+ Any questions please feel free to email or call me
