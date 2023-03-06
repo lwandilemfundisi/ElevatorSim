@@ -9,8 +9,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Events
     {
         #region Constructors
 
-        public LoadedPeopleEvent(uint numberOfPeople) 
+        public LoadedPeopleEvent(uint numberOfPeople, uint toFloor) 
         {
+            ToFloor = toFloor;
             NumberOfPeople = numberOfPeople;
         }
 
@@ -19,6 +20,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Events
         #region Properties
 
         public uint NumberOfPeople { get; }
+
+        public uint ToFloor { get; }
 
         #endregion
     }

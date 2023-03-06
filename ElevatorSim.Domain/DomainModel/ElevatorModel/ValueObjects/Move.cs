@@ -9,14 +9,19 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
     {
         #region Constructors
 
-        public Move(uint floorMovingTo)
+        public Move(
+            uint floorMovingTo, 
+            uint weight)
         {
+            Weight = weight;
             FloorMovingTo = floorMovingTo;
         }
 
         #endregion
 
         #region Properties
+
+        public uint Weight { get; }
 
         public uint FloorMovingTo { get; }
 

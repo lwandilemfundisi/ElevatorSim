@@ -9,14 +9,20 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Events
     {
         #region Constructors
 
-        public ElevatorMovedUpEvent()
+        public ElevatorMovedUpEvent(
+            uint movedToFloor, 
+            uint withWeight)
         {
-
+            WithWeight = withWeight;
+            MovedToFloor = movedToFloor;
         }
 
         #endregion
 
         #region Properties
+
+        public uint MovedToFloor { get; }
+        public uint WithWeight { get; }
 
         #endregion
     }

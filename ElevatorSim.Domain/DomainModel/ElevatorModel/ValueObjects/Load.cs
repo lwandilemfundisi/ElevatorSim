@@ -9,8 +9,11 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
     {
         #region Constructors
 
-        public Load(uint numberOfPeople) 
+        public Load(
+            uint numberOfPeople,
+            uint toFloor) 
         {
+            ToFloor = toFloor;
             NumberOfPeople = numberOfPeople;
         }
 
@@ -19,6 +22,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
         #region Properties
 
         public uint NumberOfPeople { get; }
+
+        public uint ToFloor { get; }
 
         #endregion
 

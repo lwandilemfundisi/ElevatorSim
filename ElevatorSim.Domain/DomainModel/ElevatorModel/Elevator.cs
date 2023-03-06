@@ -77,7 +77,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             CurrentFloor = move.FloorMovingTo;
             ElevatorStatus = ElevatorStatuses.Of().InOperation;
 
-            Emit(new ElevatorMovedUpEvent());
+            Emit(new ElevatorMovedUpEvent(move.FloorMovingTo, move.Weight));
         }
 
         public void MoveDown(Move move)
@@ -90,7 +90,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             CurrentFloor = move.FloorMovingTo;
             ElevatorStatus = ElevatorStatuses.Of().InOperation;
 
-            Emit(new ElevatorMovedDownEvent());
+            Emit(new ElevatorMovedDownEvent(move.FloorMovingTo, move.Weight));
         }
 
         public void LoadPeople(Load load)
@@ -103,7 +103,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
             CurrentWeight = load.NumberOfPeople;
             ElevatorStatus = ElevatorStatuses.Of().InLoading;
 
-            Emit(new LoadedPeopleEvent(load.NumberOfPeople));
+            Emit(new LoadedPeopleEvent(load.NumberOfPeople, load.ToFloor));
         }
 
         public void DeliverLoad(DeliverLoad loadToDeliver)

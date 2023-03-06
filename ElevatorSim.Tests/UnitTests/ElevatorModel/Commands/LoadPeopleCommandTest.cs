@@ -22,7 +22,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
         {
             //Arrange
             var testId = ElevatorId.New;
-            var load = new Load(2);
+            var load = new Load(2, 2);
             await InitializeElevatorAggregateAsync(testId, 1, 10);
 
             //Act
@@ -38,7 +38,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
         {
             //Arrange
             var testId = ElevatorId.New;
-            var load = new Load(11);
+            var load = new Load(11, 2);
             await InitializeElevatorAggregateAsync(testId, 1, 10);
 
             //Act
