@@ -7,21 +7,25 @@ using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
 using Microservice.Framework.Domain.Queries;
 using Microservice.Framework.Domain.Subscribers;
+using Microsoft.Extensions.Logging;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
 {
     public class RequestedElevatorEventSubscriber
         : ISubscribeSynchronousTo<ElevatorControl, ElevatorControlId, RequestedElevatorEvent>
     {
+        private readonly ILogger<RequestedElevatorEventSubscriber> _logger;
         private readonly ICommandBus _commandBus;
         private readonly IQueryProcessor _queryProcessor;
 
         #region Constructors
 
         public RequestedElevatorEventSubscriber(
+            ILogger<RequestedElevatorEventSubscriber> logger,
             IQueryProcessor queryProcessor,
             ICommandBus commandBus)
         {
+            _logger = logger;
             _commandBus = commandBus;
             _queryProcessor = queryProcessor;
         }
@@ -34,6 +38,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
             IDomainEvent<ElevatorControl, ElevatorControlId, RequestedElevatorEvent> domainEvent,
             CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Requesting an elevator from pool!");
+
             var elevatorControl = await _queryProcessor.ProcessAsync(
                 new GetElevatorControlQuery(domainEvent.AggregateIdentity), cancellationToken);
 

@@ -7,6 +7,7 @@ using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
 using Microservice.Framework.Domain.Queries;
 using Microservice.Framework.Domain.Subscribers;
+using Microsoft.Extensions.Logging;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
 {
@@ -15,13 +16,16 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryProcessor _queryProcessor;
+        private readonly ILogger<MoveElevatorEventSubscriber> _logger;
 
         #region Constructors
 
         public MoveElevatorEventSubscriber(
             ICommandBus commandBus,
-            IQueryProcessor queryProcessor)
+            IQueryProcessor queryProcessor,
+            ILogger<MoveElevatorEventSubscriber> logger)
         {
+            _logger = logger;
             _commandBus = commandBus;
             _queryProcessor = queryProcessor;
         }
@@ -42,26 +46,35 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
 
             //check where elevator is, then decide on that if its up or down
             if (elevator.CurrentFloor > fromFloor)
+            {
+                _logger.LogInformation("Elevator has been requested to come down!");
                 await _commandBus
                     .PublishAsync(new RequestElevatorDownCommand(
                         elevatorId,
                         new Move(
                             floorMovingTo,
                             domainEvent.AggregateEvent.ToLoadPeople)), cancellationToken);
-
+            }
             else if (elevator.CurrentFloor < fromFloor)
+            {
+                _logger.LogInformation("Elevator has been requested to come up!");
                 await _commandBus
                     .PublishAsync(new RequestElevatorUpCommand(
                         elevatorId,
                         new Move(
                             floorMovingTo,
                             domainEvent.AggregateEvent.ToLoadPeople)), cancellationToken);
+            }                
             else
+            {
+                _logger.LogInformation("Elevator has arrived at your floor!");
                 //if the elevetor is at the requested floor, then it loads
                 await _commandBus.PublishAsync(new LoadPeopleCommand(
                     elevatorId, new Load(
                         domainEvent.AggregateEvent.ToLoadPeople,
                         domainEvent.AggregateEvent.ToFloor)), cancellationToken);
+            }
+                
         }
 
         #endregion

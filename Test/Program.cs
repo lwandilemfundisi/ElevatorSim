@@ -12,6 +12,7 @@ using Microservice.Framework.Domain.Commands;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Entities;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 IConfiguration configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
@@ -20,7 +21,10 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 var _serviceProvider = new ServiceCollection()
-.AddLogging()
+.AddLogging(b => {
+    b.AddConsole();
+    b.SetMinimumLevel(LogLevel.Information);
+})
 .AddSingleton(configuration)
 .ConfigureElevatorSimDomain()
 .ConfigureElevatorSimPersistence<ElevatorSimContext, ElevatorSimContextProvider>()

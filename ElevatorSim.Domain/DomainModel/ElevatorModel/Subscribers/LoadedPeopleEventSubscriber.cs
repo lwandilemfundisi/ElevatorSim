@@ -6,6 +6,7 @@ using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
 using Microservice.Framework.Domain.Queries;
 using Microservice.Framework.Domain.Subscribers;
+using Microsoft.Extensions.Logging;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
 {
@@ -14,13 +15,16 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryProcessor _queryProcessor;
+        private readonly ILogger<LoadedPeopleEventSubscriber> _logger;
 
         #region Constructors
 
         public LoadedPeopleEventSubscriber(
             ICommandBus commandBus,
-            IQueryProcessor queryProcessor) 
+            IQueryProcessor queryProcessor,
+            ILogger<LoadedPeopleEventSubscriber> logger) 
         {
+            _logger = logger;
             _commandBus = commandBus;
             _queryProcessor = queryProcessor;
         }
@@ -33,6 +37,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
             IDomainEvent<Elevator, ElevatorId, LoadedPeopleEvent> domainEvent, 
             CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Elevator has now taken the load!");
             var elevator = await _queryProcessor
                 .ProcessAsync(new GetElevatorQuery(domainEvent.AggregateIdentity), cancellationToken);
 
