@@ -36,6 +36,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
             RequestElevatorCommand command, 
             CancellationToken cancellationToken)
         {
+            aggregate.RequestElevator(command.RequestElevetor);
             return Task.FromResult(ExecutionResult.Success());
         }
 

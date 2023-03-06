@@ -23,8 +23,4 @@
     <ProjectReference Include="..\ElevatorSim.Persistence\ElevatorSim.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="IntegrationTests\" />
-  </ItemGroup>
-
 </Project>

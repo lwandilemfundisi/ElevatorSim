@@ -1,5 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoMoq;
+using AutoFixture.Dsl;
+using AutoFixture.Kernel;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Entities;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects;
@@ -50,6 +52,12 @@ namespace ElevatorSim.Tests.Helpers
 
         protected T A<T>()
         {
+            return _fixture.Create<T>();
+        }
+
+        protected T A<T>(Func<ICustomizationComposer<T>, ISpecimenBuilder> composerTransformation)
+        {
+            _fixture.Customize<T>(composerTransformation);
             return _fixture.Create<T>();
         }
 
