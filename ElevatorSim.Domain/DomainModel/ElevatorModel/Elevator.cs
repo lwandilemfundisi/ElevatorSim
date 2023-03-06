@@ -74,10 +74,10 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
                 .And(move.GetElevatorMoveUpSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
-            CurrentFloor = move.FloorMovingTo;
+            CurrentFloor = move.RequestedFromFloor ?? move.FloorMovingTo;
             ElevatorStatus = ElevatorStatuses.Of().InOperation;
 
-            Emit(new ElevatorMovedUpEvent(move.FloorMovingTo, move.Weight));
+            Emit(new ElevatorMovedUpEvent(CurrentFloor, move.Weight, move.IsMovingLoad, move.FloorMovingTo));
         }
 
         public void MoveDown(Move move)
@@ -87,10 +87,10 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel
                 .And(move.GetElevatorMoveDownSpecification())
                 .ThrowDomainErrorIfNotSatisfied(this);
 
-            CurrentFloor = move.FloorMovingTo;
+            CurrentFloor = move.RequestedFromFloor ?? move.FloorMovingTo;
             ElevatorStatus = ElevatorStatuses.Of().InOperation;
 
-            Emit(new ElevatorMovedDownEvent(move.FloorMovingTo, move.Weight));
+            Emit(new ElevatorMovedDownEvent(CurrentFloor, move.Weight, move.IsMovingLoad, move.FloorMovingTo));
         }
 
         public void LoadPeople(Load load)

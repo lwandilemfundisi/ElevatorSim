@@ -46,7 +46,7 @@ var initControl = new InitializeControl(new List<ManagedElevator>
     } 
 });
 
-await InitializeElevatorAggregateAsync(testElevatorId, 1, 10);
+await InitializeElevatorAggregateAsync(testElevatorId, 6, 10);
 await InitializeElevatorControlAggregateAsync(testElevatorControlId, initControl);
 
 var result = await _commandBus

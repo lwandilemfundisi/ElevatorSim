@@ -2,6 +2,7 @@
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Events;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Queries;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects;
+using ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects.XmlValueObjects;
 using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
 using Microservice.Framework.Domain.Queries;
@@ -47,16 +48,20 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
                     .PublishAsync(new RequestElevatorDownCommand(
                         domainEvent.AggregateIdentity,
                         new Move(
+                            null,
                             domainEvent.AggregateEvent.ToFloor,
-                            domainEvent.AggregateEvent.NumberOfPeople)), cancellationToken);
+                            domainEvent.AggregateEvent.NumberOfPeople,
+                            elevator.ElevatorStatus.IsIn(ElevatorStatuses.Of().InLoading))), cancellationToken);
 
             else if (elevator.CurrentFloor < domainEvent.AggregateEvent.ToFloor)
                 await _commandBus
                     .PublishAsync(new RequestElevatorUpCommand(
                         domainEvent.AggregateIdentity,
                         new Move(
+                            null,
                             domainEvent.AggregateEvent.ToFloor,
-                            domainEvent.AggregateEvent.NumberOfPeople)), cancellationToken);
+                            domainEvent.AggregateEvent.NumberOfPeople,
+                            elevator.ElevatorStatus.IsIn(ElevatorStatuses.Of().InLoading))), cancellationToken);
         }
 
         #endregion

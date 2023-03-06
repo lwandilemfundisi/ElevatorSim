@@ -11,19 +11,19 @@ using Microsoft.Extensions.Logging;
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
 {
-    public class ElevatorMovedUpEventSubscriber
-        : ISubscribeSynchronousTo<Elevator, ElevatorId, ElevatorMovedUpEvent>
+    public class ElevatorMovedDownEventSubscriber
+        : ISubscribeSynchronousTo<Elevator, ElevatorId, ElevatorMovedDownEvent>
     {
         private readonly ICommandBus _commandBus;
         private readonly IQueryProcessor _queryProcessor;
-        private readonly ILogger<ElevatorMovedUpEventSubscriber> _logger;
+        private readonly ILogger<ElevatorMovedDownEventSubscriber> _logger;
 
         #region Constructors
 
-        public ElevatorMovedUpEventSubscriber(
+        public ElevatorMovedDownEventSubscriber(
             ICommandBus commandBus,
             IQueryProcessor queryProcessor,
-            ILogger<ElevatorMovedUpEventSubscriber> logger)
+            ILogger<ElevatorMovedDownEventSubscriber> logger)
         {
             _logger = logger;
             _queryProcessor = queryProcessor;
@@ -35,7 +35,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
         #region Virtual Methods
 
         public async Task HandleAsync(
-            IDomainEvent<Elevator, ElevatorId, ElevatorMovedUpEvent> domainEvent, 
+            IDomainEvent<Elevator, ElevatorId, ElevatorMovedDownEvent> domainEvent, 
             CancellationToken cancellationToken)
         {
             //get elevator status
@@ -50,8 +50,9 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
                         domainEvent.AggregateEvent.WithWeight,
                         domainEvent.AggregateEvent.TakingLoadToFloor.GetValueOrDefault())), cancellationToken);
             }
-            else if (domainEvent.AggregateEvent.IsMovingLoad)
+            else if(domainEvent.AggregateEvent.IsMovingLoad)
             {
+                _logger.LogInformation("Elevator has now moved down the load!");
                 await _commandBus.PublishAsync(new DeliverLoadCommand(
                     domainEvent.AggregateIdentity,
                     new DeliverLoad(domainEvent.AggregateEvent.WithWeight)), cancellationToken);

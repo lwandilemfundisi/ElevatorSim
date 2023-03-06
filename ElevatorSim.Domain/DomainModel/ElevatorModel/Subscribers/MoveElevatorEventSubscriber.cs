@@ -39,35 +39,39 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.Subscribers
             CancellationToken cancellationToken)
         {
             var elevatorId = new ElevatorId(domainEvent.AggregateEvent.ElevatorId);
-            var fromFloor = domainEvent.AggregateEvent.FromFloor;
-            var floorMovingTo = domainEvent.AggregateEvent.ToFloor;
+            var requestedFromFloor = domainEvent.AggregateEvent.FromFloor;
+            var goingToFloor = domainEvent.AggregateEvent.ToFloor;
             var elevator = await _queryProcessor
                 .ProcessAsync(new GetElevatorQuery(elevatorId), cancellationToken);
 
             //check where elevator is, then decide on that if its up or down
-            if (elevator.CurrentFloor > fromFloor)
+            if (elevator.CurrentFloor > requestedFromFloor)
             {
-                _logger.LogInformation("Elevator has been requested to come down!");
+                _logger.LogInformation($"Elevator has been requested to come down to {requestedFromFloor}!");
                 await _commandBus
                     .PublishAsync(new RequestElevatorDownCommand(
                         elevatorId,
                         new Move(
-                            floorMovingTo,
-                            domainEvent.AggregateEvent.ToLoadPeople)), cancellationToken);
+                            requestedFromFloor,
+                            goingToFloor,
+                            domainEvent.AggregateEvent.ToLoadPeople,
+                            false)), cancellationToken);
             }
-            else if (elevator.CurrentFloor < fromFloor)
+            else if (elevator.CurrentFloor < requestedFromFloor)
             {
-                _logger.LogInformation("Elevator has been requested to come up!");
+                _logger.LogInformation($"Elevator has been requested to come up to {requestedFromFloor}!");
                 await _commandBus
                     .PublishAsync(new RequestElevatorUpCommand(
                         elevatorId,
                         new Move(
-                            floorMovingTo,
-                            domainEvent.AggregateEvent.ToLoadPeople)), cancellationToken);
-            }                
+                            requestedFromFloor,
+                            goingToFloor,
+                            domainEvent.AggregateEvent.ToLoadPeople,
+                            false)), cancellationToken);
+            }
             else
             {
-                _logger.LogInformation("Elevator has arrived at your floor!");
+                _logger.LogInformation($"Elevator has arrived at your floor {requestedFromFloor}!");
                 //if the elevetor is at the requested floor, then it loads
                 await _commandBus.PublishAsync(new LoadPeopleCommand(
                     elevatorId, new Load(

@@ -10,16 +10,24 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorModel.ValueObjects
         #region Constructors
 
         public Move(
+            uint? requestedFromFloor,
             uint floorMovingTo, 
-            uint weight)
+            uint weight,
+            bool isMovingLoad)
         {
             Weight = weight;
+            RequestedFromFloor = requestedFromFloor;
+            IsMovingLoad = isMovingLoad;
             FloorMovingTo = floorMovingTo;
         }
 
         #endregion
 
         #region Properties
+
+        public uint? RequestedFromFloor { get; }
+
+        public bool IsMovingLoad { get; }
 
         public uint Weight { get; }
 

@@ -15,7 +15,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
         {
             //Arrange
             var testId = ElevatorId.New;
-            var move = new Move(2, 1);
+            var move = new Move(null, 2, 1, false);
             await InitializeElevatorAggregateAsync(testId, 1, 10);
 
             //Act
@@ -31,7 +31,7 @@ namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
         {
             //Arrange
             var testId = ElevatorId.New;
-            var move = new Move(1, 1);
+            var move = new Move(null, 1, 1, false);
             await InitializeElevatorAggregateAsync(testId, 2, 10);
 
             //Act
