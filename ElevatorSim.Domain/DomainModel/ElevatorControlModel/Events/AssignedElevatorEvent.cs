@@ -10,7 +10,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events
     {
         #region Constructors
 
-        public AssignedElevatorEvent(AssignedElevetor assignedElevetor)
+        public AssignedElevatorEvent(AssignedElevator assignedElevetor)
         {
             AssignedElevetor = assignedElevetor;
         }
@@ -19,7 +19,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events
 
         #region Properties
 
-        public AssignedElevetor AssignedElevetor { get; }
+        public AssignedElevator AssignedElevetor { get; }
 
         #endregion
     }

@@ -11,25 +11,17 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
 
         public AssignElevatorCommand(
             ElevatorControlId aggregateId,
-            string elevatorId,
-            uint floorNumber,
-            uint numberOfPeople)
+            AssignedElevator assignedElevetor)
             : base(aggregateId)
         {
-            ElevatorId = elevatorId;
-            FloorNumber = floorNumber;
-            NumberOfPeople = numberOfPeople;
+            AssignedElevetor = assignedElevetor;
         }
 
         #endregion
 
         #region Properties
 
-        public string ElevatorId { get; }
-
-        public uint FloorNumber { get; }
-
-        public uint NumberOfPeople { get; }
+        public AssignedElevator AssignedElevetor { get; }
 
         #endregion
     }
@@ -44,12 +36,7 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands
             AssignElevatorCommand command, 
             CancellationToken cancellationToken)
         {
-            aggregate.AssignElevator(new AssignedElevetor(
-                command.ElevatorId,
-                command.FloorNumber,
-                command.NumberOfPeople
-                ));
-
+            aggregate.AssignElevator(command.AssignedElevetor);
             return Task.FromResult(ExecutionResult.Success());
         }
 

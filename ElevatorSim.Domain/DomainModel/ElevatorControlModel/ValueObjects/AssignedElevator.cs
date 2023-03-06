@@ -2,12 +2,12 @@
 
 namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects
 {
-    public class AssignedElevetor
+    public class AssignedElevator
         : ValueObject
     {
         #region Constructors
 
-        public AssignedElevetor(
+        public AssignedElevator(
             string elevatorId,
             uint floorNumber,
             uint numberOfPeople)

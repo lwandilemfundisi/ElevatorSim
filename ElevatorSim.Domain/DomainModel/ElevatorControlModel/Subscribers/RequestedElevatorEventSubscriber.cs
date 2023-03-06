@@ -1,6 +1,7 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Commands;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Events;
 using ElevatorSim.Domain.DomainModel.ElevatorControlModel.Queries;
+using ElevatorSim.Domain.DomainModel.ElevatorControlModel.ValueObjects;
 using Microservice.Framework.Common;
 using Microservice.Framework.Domain.Commands;
 using Microservice.Framework.Domain.Events;
@@ -45,9 +46,10 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel.Subscribers
 
             await _commandBus.PublishAsync(new AssignElevatorCommand(
                 domainEvent.AggregateIdentity,
-                selectedElevatorId,
-                domainEvent.AggregateEvent.RequestElevetor.FloorNumber,
-                domainEvent.AggregateEvent.RequestElevetor.NumberOfPeople
+                new AssignedElevator(
+                    selectedElevatorId,
+                    domainEvent.AggregateEvent.RequestElevetor.FloorNumber,
+                    domainEvent.AggregateEvent.RequestElevetor.NumberOfPeople)
                 ), cancellationToken);
         }
 

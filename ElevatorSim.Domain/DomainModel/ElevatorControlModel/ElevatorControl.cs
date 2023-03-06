@@ -54,15 +54,17 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
         public void RequestElevator(RequestElevetor requestElevetor)
         {
             AggregateSpecifications
-                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsCreated
+                .ThrowDomainErrorIfNotSatisfied(this);
 
             Emit(new RequestedElevatorEvent(requestElevetor));
         }
 
-        public void AssignElevator(AssignedElevetor assignedElevetor)
+        public void AssignElevator(AssignedElevator assignedElevetor)
         {
             AggregateSpecifications
-                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsCreated
+                .ThrowDomainErrorIfNotSatisfied(this);
 
             Emit(new AssignedElevatorEvent(assignedElevetor));
         }
@@ -70,7 +72,8 @@ namespace ElevatorSim.Domain.DomainModel.ElevatorControlModel
         public void MoveElevator(string elevatorId, uint toFloor, uint toLoadPeople)
         {
             AggregateSpecifications
-                .AggregateIsCreated.ThrowDomainErrorIfNotSatisfied(this);
+                .AggregateIsCreated
+                .ThrowDomainErrorIfNotSatisfied(this);
 
             Emit(new MoveElevatorEvent(elevatorId, toFloor, toLoadPeople));
         }

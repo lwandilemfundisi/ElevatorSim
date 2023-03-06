@@ -1,7 +1,6 @@
 ﻿using ElevatorSim.Domain.DomainModel.ElevatorModel;
 using ElevatorSim.Domain.DomainModel.ElevatorModel.Commands;
 using ElevatorSim.Tests.Helpers;
-using FluentAssertions;
 using Microservice.Framework.Domain.Exceptions;
 
 namespace ElevatorSim.Tests.UnitTests.ElevatorModel.Commands
