@@ -14,8 +14,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ElevatorSim.Domain\ElevatorSim.Domain.csproj" />
-	  <ProjectReference Include="..\ElevatorSim.Persistence\ElevatorSim.Persistence.csproj" />
+		<ProjectReference Include="..\ElevatorSim.Domain\ElevatorSim.Domain.csproj" />
+		<ProjectReference Include="..\ElevatorSim.Persistence\ElevatorSim.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

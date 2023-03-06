@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSim.Persistence", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSim.Tests", "ElevatorSim.Tests\ElevatorSim.Tests.csproj", "{003ECF95-7917-4E8E-B1FD-B5822A0D1EA6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElevatorSim.Console", "ElevatorSim.Console\ElevatorSim.Console.csproj", "{55365304-838E-4E59-909F-3C4EF888D5AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{59F377C8-94C9-4F59-B84A-2B97A3A252C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{003ECF95-7917-4E8E-B1FD-B5822A0D1EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{003ECF95-7917-4E8E-B1FD-B5822A0D1EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{003ECF95-7917-4E8E-B1FD-B5822A0D1EA6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55365304-838E-4E59-909F-3C4EF888D5AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55365304-838E-4E59-909F-3C4EF888D5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55365304-838E-4E59-909F-3C4EF888D5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55365304-838E-4E59-909F-3C4EF888D5AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59F377C8-94C9-4F59-B84A-2B97A3A252C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59F377C8-94C9-4F59-B84A-2B97A3A252C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59F377C8-94C9-4F59-B84A-2B97A3A252C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59F377C8-94C9-4F59-B84A-2B97A3A252C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
